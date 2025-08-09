@@ -82,6 +82,13 @@ export const assets = {
 export const workData = [
 
     {
+        title: "Touria",
+        description: "A modern tourism guide mobile app built with Flutter and Firebase.",
+        bgImage: '/work5.png',
+    },
+
+
+    {
         title: 'Contact app',
         description: 'Contact Management Mobile App using Flutter',
         bgImage: '/Contact.jpg',
