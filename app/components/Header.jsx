@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets';
 import React from 'react';
 import { motion } from "motion/react";
 
-const Header = ({ isDarkMode }) => {
+const Header = ({ isDarkMode, setDarkMode }) => {
     return (
         <div className="w-11/12 max-w-5xl text-center mx-auto  h-screen flex flex-col items-center
         justify-center gap-4">
