@@ -41,13 +41,13 @@ const Work = ({ isDarkMode, setDarkMode }) => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
-                className='grid grid-cols-auto my-10 gap-5 dark:text-black'>
+                className='flex overflow-x-auto space-x-5 my-10 dark:text-black py-2 snap-x snap-mandatory'>
                 {workData.map((project, index) => (
                     <motion.div
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
                         key={index}
-                        className='aspect-square bg-no-repeat
+                        className='min-w-[250px] aspect-square bg-no-repeat
                      bg-cover bg-center rounded-lg relative cursor-pointer group'
                         style={{ backgroundImage: `url(${project.bgImage})` }}>
 

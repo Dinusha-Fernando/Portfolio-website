@@ -43,11 +43,13 @@ const About = ({ isDarkMode, setDarkMode }) => {
                     transition={{ duration: 0.6, delay: 0.8 }}
                     className='flex-1'>
                     <p className='mb-10 max-w-2xl font-Ovo'>
-                        I’m Dinusha Kalhara, a Flutter & React Native developer and web developer from Sri Lanka,
-                        passionate about building high-performance, user-friendly mobile apps and websites.
-                        With a deep passion for technology innovation, I am always looking to improve my skills and stay ahead of the curve.
-                        I specialize in cross-platform development, UI/UX design, and backend integration,
-                        and I constantly explore new technologies like AI and machine learning. Open to global opportunities, I strive to create innovative digital solutions.
+
+                        I’m Dinusha Fernando, a passionate and dedicated aspiring Software Engineer Intern from Sri Lanka with experience in Flutter, React Native, and web development.
+                        I enjoy building high-performance, user-friendly mobile apps and websites that deliver great user experiences.
+                        Driven by a strong interest in technology innovation, I am committed to continuously improving my skills and staying updated with the latest trends.
+                        My focus areas include cross-platform development, UI/UX design, and backend integration, and I am actively exploring emerging technologies such as Cloude technologies, AI and machine learning.
+                        Open to global internship opportunities, I aim to contribute effectively while learning and growing as a software engineer.
+
                     </p>
 
                     <motion.ul
