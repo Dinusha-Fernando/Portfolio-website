@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import About from "./components/About";
 import Services from "./components/Services";
+import TechStack from "./components/TechStack";
+import Experience from "./components/Experience";
 import Work from "./components/Work";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer"
@@ -41,11 +43,13 @@ export default function Home() {
     <>
       <Navbar isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
       <Header isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
-      <About isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
-      <Services isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
-      <Work isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
-      <Contact isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
-      <Footer isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
+      <About isDarkMode={isDarkMode} />
+      <Experience isDarkMode={isDarkMode} />
+      <TechStack isDarkMode={isDarkMode} />
+      <Services isDarkMode={isDarkMode} />
+      <Work isDarkMode={isDarkMode} />
+      <Contact isDarkMode={isDarkMode} />
+      <Footer isDarkMode={isDarkMode} />
     </>
 
   );
