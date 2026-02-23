@@ -1,0 +1,15 @@
+﻿import { assets, serviceData } from '@/assets/assets'
+import Image from 'next/image'
+import React from 'react'
+import { motion } from "framer-motion";
+
+
+const Services = () => {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            id="services"
+            className='w-full px-[12%] py-20 scroll-mt-20'

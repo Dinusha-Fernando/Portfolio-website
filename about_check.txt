@@ -1,0 +1,5 @@
+﻿import { assets, infoList, toolsData } from '@/assets/assets'
+import Image from 'next/image'
+import React, { useRef } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
