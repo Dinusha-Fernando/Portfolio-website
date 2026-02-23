@@ -71,20 +71,18 @@ const Navbar = ({ isDarkMode, setDarkMode }: NavbarProps) => {
                     : "bg-white/20 dark:bg-transparent"
                     }`}>
                     {navLinks.map((link, index) => (
-                        <motion.li
-                            key={link.name}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 * index, duration: 0.5 }}
-                        >
-                            <a
+                        <li key={link.name}>
+                            <motion.a
                                 href={link.href}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 * index, duration: 0.5 }}
                                 className="font-outfit text-sm font-medium hover:text-accent transition-colors duration-300 relative group"
                             >
                                 {link.name}
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
-                            </a>
-                        </motion.li>
+                            </motion.a>
+                        </li>
                     ))}
                 </ul>
 
@@ -94,6 +92,8 @@ const Navbar = ({ isDarkMode, setDarkMode }: NavbarProps) => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => setDarkMode(prev => !prev)}
+                        aria-label="Toggle dark mode"
+                        title="Toggle dark mode"
                         className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
                     >
                         <Image src={isDarkMode ? assets.sun_icon : assets.moon_icon} alt="Toggle Device Theme" className="w-5" />
@@ -109,7 +109,7 @@ const Navbar = ({ isDarkMode, setDarkMode }: NavbarProps) => {
                     </motion.a>
 
                     {/* Mobile Menu Toggle */}
-                    <button className="md:hidden p-2" onClick={openMenu}>
+                    <button className="md:hidden p-2" onClick={openMenu} aria-label="Open menu" title="Open menu">
                         <Image src={isDarkMode ? assets.menu_white : assets.menu_black} alt="Open Menu" className="w-6" />
                     </button>
                 </div>
@@ -119,9 +119,16 @@ const Navbar = ({ isDarkMode, setDarkMode }: NavbarProps) => {
                     ref={sideMenuRef}
                     className="flex md:hidden flex-col gap-6 py-24 px-10 fixed -right-64 top-0 bottom-0 w-64 z-[60] h-screen glass transition-transform duration-500 dark:text-white"
                 >
-                    <div className="absolute right-6 top-6 p-2" onClick={closeMenu}>
-                        <Image src={isDarkMode ? assets.close_white : assets.close_black} alt="Close Menu" className="w-5 cursor-pointer" />
-                    </div>
+                    <li className="absolute right-6 top-6">
+                        <button
+                            className="p-2"
+                            onClick={closeMenu}
+                            aria-label="Close menu"
+                            title="Close menu"
+                        >
+                            <Image src={isDarkMode ? assets.close_white : assets.close_black} alt="Close Menu" className="w-5" />
+                        </button>
+                    </li>
 
                     {navLinks.map((link) => (
                         <li key={link.name}>

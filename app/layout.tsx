@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Ovo } from "next/font/google"; // Capitalized correctly
+import { Outfit, Ovo } from "next/font/google"; 
 import "./globals.css";
 
 // Properly initialize fonts

@@ -68,8 +68,7 @@ const Header = ({ isDarkMode }: HeaderProps) => {
         <div
             id="top"
             ref={containerRef}
-            className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-darkTheme pt-20 perspective-1000"
-            style={{ perspective: "1200px" }}
+            className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-darkTheme pt-20 perspective-1000 perspective-1200"
         >
             <div className="absolute inset-0 pointer-events-none z-0">
                 {isMounted && orbPositions.map((pos, i) => (

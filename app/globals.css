@@ -59,6 +59,10 @@
   color: transparent;
 }
 
+.perspective-1200 {
+  perspective: 1200px;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
