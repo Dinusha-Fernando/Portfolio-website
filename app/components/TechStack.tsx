@@ -3,11 +3,8 @@ import Image from 'next/image';
 import React from 'react';
 import { motion } from "framer-motion";
 
-interface TechStackProps {
-    isDarkMode: boolean;
-}
 
-const TechStack = ({ isDarkMode }: TechStackProps) => {
+const TechStack = () => {
     const coreStack = [
         {
             title: "Mobile Development",

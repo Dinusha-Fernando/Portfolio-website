@@ -1,7 +1,7 @@
 import { assets, infoList, toolsData } from '@/assets/assets'
 import Image from 'next/image'
-import React, { useRef, useState } from 'react'
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import React, { useRef } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface AboutProps {
     isDarkMode: boolean;
@@ -109,7 +109,7 @@ const About = ({ isDarkMode }: AboutProps) => {
                             >
                                 <p className="text-[9px] uppercase font-black tracking-widest text-accent mb-1">Philosophy</p>
                                 <p className="text-[10px] font-outfit font-medium text-gray-800 dark:text-gray-200 italic leading-snug">
-                                    "Precision in logic, <br />fluidity in design."
+                                    &quot;Precision in logic, &quot;<br />fluidity in design.&quot;
                                 </p>
                             </motion.div>
                         </SculptureCard>

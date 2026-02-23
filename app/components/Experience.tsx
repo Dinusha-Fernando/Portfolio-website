@@ -1,10 +1,21 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { assets } from '@/assets/assets';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 
-const Experience = ({ isDarkMode }: { isDarkMode: boolean }) => {
-    const experiences = [
+interface ExperienceData {
+    year: string;
+    title: string;
+    company: string;
+    duration: string;
+    description: string;
+    skills: string[];
+    metrics: string[];
+    icon: StaticImageData;
+}
+
+const Experience = () => {
+    const experiences: ExperienceData[] = [
         {
             year: "2025",
             title: "Freelance Full Stack Software Engineer",
@@ -70,7 +81,7 @@ const Experience = ({ isDarkMode }: { isDarkMode: boolean }) => {
                     <div className="absolute left-[21px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-gray-200 dark:via-white/10 to-transparent" />
 
                     {experiences.map((exp, idx) => (
-                        <ExperienceCard key={idx} exp={exp} index={idx} isDarkMode={isDarkMode} />
+                        <ExperienceCard key={idx} exp={exp} index={idx} />
                     ))}
                 </div>
             </div>
@@ -78,7 +89,7 @@ const Experience = ({ isDarkMode }: { isDarkMode: boolean }) => {
     );
 };
 
-const ExperienceCard = ({ exp, index, isDarkMode }: { exp: any, index: number, isDarkMode: boolean }) => {
+const ExperienceCard = ({ exp, index }: { exp: ExperienceData, index: number }) => {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,

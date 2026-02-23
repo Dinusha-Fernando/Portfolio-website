@@ -44,7 +44,7 @@ const Contact = ({ isDarkMode }: ContactProps) => {
                 setStatus("error");
                 setResult(data.message || "Failed to reach the hub. Try again?");
             }
-        } catch (error) {
+        } catch {
             setStatus("error");
             setResult("Connection lost. Please check your internet and try again.");
         }
@@ -147,8 +147,8 @@ const Contact = ({ isDarkMode }: ContactProps) => {
                             className="pt-12 hidden lg:block"
                         >
                             <p className="font-ovo text-2xl italic text-gray-400 dark:text-gray-600 leading-snug">
-                                "Ideas are easy. <br />
-                                <span className="text-accent underline decoration-accent/20">Implementation</span> is everything."
+                                &quot;Ideas are easy. &quot;<br />
+                                <span className="text-accent underline decoration-accent/20">Implementation</span> is everything.&quot;
                             </p>
                         </motion.div>
                     </div>
@@ -204,8 +204,8 @@ const Contact = ({ isDarkMode }: ContactProps) => {
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, scale: 0.95 }}
                                             className={`p-5 rounded-2xl text-center text-sm font-outfit font-bold flex items-center justify-center gap-3 ${status === "success" ? "bg-green-500/10 text-green-500 border border-green-500/20" :
-                                                    status === "error" ? "bg-red-500/10 text-red-500 border border-red-500/20" :
-                                                        "bg-gray-100 dark:bg-white/5 text-gray-500"
+                                                status === "error" ? "bg-red-500/10 text-red-500 border border-red-500/20" :
+                                                    "bg-gray-100 dark:bg-white/5 text-gray-500"
                                                 }`}
                                         >
                                             {status === "success" && <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />}

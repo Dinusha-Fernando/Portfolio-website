@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { assets } from '@/assets/assets';
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
 
 interface HeaderProps {
     isDarkMode: boolean;
@@ -11,9 +11,9 @@ interface HeaderProps {
 const FloatingOrb = ({ pos, index, mouseX, mouseY, springConfig }: {
     pos: { left: string; top: string };
     index: number;
-    mouseX: any;
-    mouseY: any;
-    springConfig: any
+    mouseX: MotionValue<number>;
+    mouseY: MotionValue<number>;
+    springConfig: { damping: number; stiffness: number };
 }) => {
     const x = useSpring(useTransform(mouseX, [-500, 500], [index * -30, index * 30]), springConfig);
     const y = useSpring(useTransform(mouseY, [-500, 500], [index * -30, index * 30]), springConfig);
@@ -136,7 +136,7 @@ const Header = ({ isDarkMode }: HeaderProps) => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                     >
                         <h3 className="font-ovo text-xl sm:text-2xl italic text-gray-500 dark:text-gray-400 mb-2">
-                            Hello, I'm Dinusha Fernando
+                            Hello, I&apos;m Dinusha Fernando
                         </h3>
                         <h1 className="text-5xl sm:text-7xl lg:text-8xl font-outfit font-bold tracking-tight text-gray-900 dark:text-white leading-[1.05]">
                             I build products that <br />
@@ -168,7 +168,7 @@ const Header = ({ isDarkMode }: HeaderProps) => {
                         href="#contact"
                         className="px-12 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-outfit font-bold shadow-xl transition-all hover:bg-accent dark:hover:bg-accent dark:hover:text-white"
                     >
-                        Let's Talk
+                        Let&apos;s Talk
                     </motion.a>
 
                     <motion.a

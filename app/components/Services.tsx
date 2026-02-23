@@ -3,12 +3,8 @@ import Image from 'next/image'
 import React from 'react'
 import { motion } from "framer-motion";
 
-interface ServicesProps {
-    isDarkMode: boolean;
-    setDarkMode?: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const Services = ({ isDarkMode }: ServicesProps) => {
+const Services = () => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
