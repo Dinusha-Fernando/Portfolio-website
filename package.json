@@ -11,8 +11,8 @@
   "dependencies": {
     "motion": "^12.4.5",
     "next": "15.1.9",
-    "react": "19.0.1",
-    "react-dom": "19.0.1"
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
