@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Space_Grotesk, JetBrains_Mono, Ovo } from "next/font/google";
 import "./globals.css";
 
@@ -29,6 +29,16 @@ const ovo = Ovo({
   variable: "--font-ovo",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#06060c" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "Dinusha Fernando | Software Developer",
