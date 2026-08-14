@@ -3,16 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
+    "dev:turbo": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3005",
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/three": "^0.185.4",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.31.0",
     "motion": "^12.4.5",
     "next": "15.1.9",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

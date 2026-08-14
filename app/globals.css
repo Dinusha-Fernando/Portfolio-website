@@ -5,27 +5,36 @@
 @layer base {
   :root {
     --background: 255 255 255;
-    --foreground: 0 0 0;
+    --foreground: 15 23 42;
+    --accent-rgb: 124, 58, 237;
+    --cyan-rgb: 6, 182, 212;
   }
 
   .dark {
-    --background: 11 1 24;
-    --foreground: 255 255 255;
+    --background: 6 6 12;
+    --foreground: 248 250 252;
+    --accent-rgb: 139, 92, 246;
+    --cyan-rgb: 6, 182, 212;
   }
 
   * {
-    @apply border-gray-200 dark:border-gray-800;
-    font-family: Outfit;
+    @apply border-gray-200/80 dark:border-white/[0.08];
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-white dark:bg-darkTheme text-black dark:text-white transition-colors duration-500;
+    @apply bg-white dark:bg-darkTheme text-slate-900 dark:text-slate-100 antialiased selection:bg-accent/30 selection:text-white transition-colors duration-500 overflow-x-hidden;
+    font-family: var(--font-outfit), sans-serif;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -33,45 +42,105 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-accent/20 hover:bg-accent/40 rounded-full transition-colors;
+  @apply bg-accent/30 hover:bg-accent/60 rounded-full transition-colors;
 }
 
-.glass {
-  @apply bg-white/70 dark:bg-darkTheme/70 backdrop-blur-md border border-white/20 dark:border-white/10;
+/* 3D and Glass Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
 }
 
-/* Creative Utilities */
-.bg-grid {
-  background-size: 40px 40px;
-  background-image:
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  @apply bg-white/75 dark:bg-darkSurface/75 backdrop-blur-2xl border border-gray-200/80 dark:border-white/[0.08] shadow-glass shadow-black/5 dark:shadow-black/40;
+}
+
+.glass-card {
+  @apply bg-gradient-to-b from-white/90 to-white/60 dark:from-white/[0.06] dark:to-white/[0.02] backdrop-blur-xl border border-gray-200/70 dark:border-white/[0.08] shadow-lg shadow-black/5 dark:shadow-black/30 transition-all duration-300;
+}
+
+.glass-card-hover {
+  @apply hover:border-accent/50 dark:hover:border-accent/40 hover:shadow-glass-glow dark:hover:shadow-glass-glow hover:-translate-y-1;
+}
+
+.glass-pill {
+  @apply bg-white/80 dark:bg-white/[0.05] backdrop-blur-md border border-gray-200 dark:border-white/10 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide;
+}
+
+/* Gradients */
+.text-gradient-cyber {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-accent-light to-cyan-500 dark:from-violet-400 dark:via-purple-300 dark:to-cyan-400;
+}
+
+.text-gradient-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-300;
+}
+
+.text-gradient-slate {
+  @apply bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-500 dark:from-white dark:to-gray-400;
+}
+
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
     linear-gradient(to right, rgba(124, 58, 237, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
 }
 
-.dark .bg-grid {
-  background-image:
-    linear-gradient(to right, rgba(124, 58, 237, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+.dark .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-.text-outline {
-  -webkit-text-stroke: 1px currentColor;
-  color: transparent;
+/* Ambient Radial Glows */
+.ambient-glow-purple {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0) 70%);
 }
 
-.perspective-1200 {
-  perspective: 1200px;
+.ambient-glow-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(6, 182, 212, 0) 70%);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Specular Border Glow */
+.border-glow-accent {
+  position: relative;
+}
+.border-glow-accent::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.6), transparent 50%, rgba(6, 182, 212, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Code & Terminal styling */
+.terminal-window {
+  @apply bg-[#0b0c16]/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden font-mono;
+}
+
+/* Hide scrollbar for clean carousels */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }

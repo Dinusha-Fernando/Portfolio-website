@@ -1,225 +1,363 @@
-import { assets } from '@/assets/assets'
-import Image from 'next/image'
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from "framer-motion";
+'use client';
+
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Mail, Copy, Check, Send, MapPin, Phone, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from './Icons';
+import confetti from 'canvas-confetti';
+import TiltCard from './TiltCard';
 
 interface ContactProps {
-    isDarkMode: boolean;
+  isDarkMode: boolean;
 }
 
-const Contact = ({ isDarkMode }: ContactProps) => {
-    const [result, setResult] = useState("")
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [copied, setCopied] = useState(false);
+export default function Contact({ isDarkMode }: ContactProps) {
+  const [result, setResult] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
-    const email = "dinushafando@gmail.com";
+  const email = 'dkalharafernando@gmail.com';
+  const phone = '+94 77 582 9018';
 
-    const copyEmail = () => {
-        navigator.clipboard.writeText(email);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
+  };
 
-    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setStatus("loading");
-        setResult("Processing...");
+  const copyPhone = () => {
+    navigator.clipboard.writeText(phone);
+    setCopiedPhone(true);
+    setTimeout(() => setCopiedPhone(false), 2500);
+  };
 
-        const formData = new FormData(event.currentTarget);
-        formData.append("access_key", "5f73c76a-f09f-4228-8f3b-9ddc940ea74f");
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus('loading');
+    setResult('Dispatching message to Dinusha...');
 
-        try {
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: formData
-            });
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append('access_key', '5f73c76a-f09f-4228-8f3b-9ddc940ea74f');
 
-            const data = await response.json();
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
 
-            if (data.success) {
-                setStatus("success");
-                setResult("Your message reached my hub! I'll be in touch soon.");
-                (event.target as HTMLFormElement).reset();
-            } else {
-                setStatus("error");
-                setResult(data.message || "Failed to reach the hub. Try again?");
-            }
-        } catch {
-            setStatus("error");
-            setResult("Connection lost. Please check your internet and try again.");
-        }
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        setResult('Message received! I will review and reply within 24 hours.');
+        form.reset();
+
+        // Confetti explosion
+        confetti({
+          particleCount: 100,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#7c3aed', '#06b6d4', '#10b981', '#f59e0b'],
+        });
+      } else {
+        setStatus('error');
+        setResult(data.message || 'Submission failed. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setResult('Network connection error. Please try direct email.');
     }
+  };
 
-    const contactChannels = [
-        {
-            title: "Direct Email",
-            value: email,
-            icon: assets.mail_icon,
-            iconDark: assets.mail_icon_dark,
-            action: copyEmail,
-            actionLabel: copied ? "Copied!" : "Copy Address"
-        },
-        {
-            title: "LinkedIn",
-            value: "Dinusha Fernando",
-            icon: assets.project_icon,
-            iconDark: assets.project_icon_dark,
-            link: "https://www.linkedin.com/in/dinusha-fernando-797745265/",
-            actionLabel: "View Profile"
-        },
-        {
-            title: "Location",
-            value: "Western Province, SL",
-            icon: assets.edu_icon,
-            iconDark: assets.edu_icon_dark,
-            actionLabel: "Time Zone: GMT+5:30"
-        }
-    ];
+  const channels = [
+    {
+      title: 'Direct Inbox',
+      value: email,
+      icon: Mail,
+      action: copyEmail,
+      actionLabel: copiedEmail ? 'Copied Email!' : 'Copy Email Address',
+      badge: 'Primary Email',
+    },
+    {
+      title: 'Direct Phone / WhatsApp',
+      value: phone,
+      icon: Phone,
+      action: copyPhone,
+      actionLabel: copiedPhone ? 'Copied Phone!' : 'Copy Phone Number',
+      badge: 'Direct Phone',
+    },
+    {
+      title: 'Professional Network',
+      value: 'Dinusha Fernando',
+      icon: LinkedinIcon,
+      link: 'https://www.linkedin.com/in/dinusha-fernando-797745265/',
+      actionLabel: 'Connect on LinkedIn',
+      badge: 'LinkedIn Profile',
+    },
+    {
+      title: 'Open Source Hub',
+      value: 'github.com/Dinusha-Fernando',
+      icon: GithubIcon,
+      link: 'https://github.com/Dinusha-Fernando',
+      actionLabel: 'Inspect Repositories',
+      badge: 'GitHub',
+    },
+  ];
 
-    return (
-        <section id="contact" className='w-full px-[10%] py-32 scroll-mt-24 relative overflow-hidden'>
+  return (
+    <section id="contact" className="w-full px-[5%] lg:px-[10%] py-20 sm:py-24 scroll-mt-20 relative overflow-hidden">
+      {/* Ambient background bloom */}
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[180px] pointer-events-none -z-10" />
 
-            {/* Atmosphere */}
-            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px] -z-10 dark:opacity-20" />
+      <div className="max-w-7xl mx-auto space-y-14">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-3">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent font-mono text-xs uppercase tracking-widest"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              06 // Direct Dialogue
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl sm:text-5xl font-outfit font-extrabold tracking-tight"
+            >
+              Let&apos;s Build <span className="text-gradient-cyber">Something Iconic.</span>
+            </motion.h2>
+          </div>
 
-            <div className="max-w-7xl mx-auto">
-                <div className="mb-20 space-y-4">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-3"
-                    >
-                        <span className="w-12 h-[2px] bg-accent" />
-                        <span className="text-accent font-outfit font-bold uppercase tracking-[0.3em] text-sm">Dialogue</span>
-                    </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-5xl md:text-7xl font-outfit font-bold tracking-tight"
-                    >
-                        Communication <span className="text-gray-400 dark:text-gray-600 font-ovo italic">Hub.</span>
-                    </motion.h2>
-                </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="max-w-md text-slate-600 dark:text-slate-400 font-outfit text-sm sm:text-base leading-relaxed"
+          >
+            Have an engineering role, contract, or ambitious product in mind? Send a dispatch or ping me directly.
+          </motion.p>
+        </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
+        {/* Contact Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left Column: Direct Channels & Location Info (5 Cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            {channels.map((ch, idx) => {
+              const Icon = ch.icon;
 
-                    {/* Left: Contact Channels */}
-                    <div className="lg:col-span-2 space-y-6">
-                        {contactChannels.map((channel, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group p-8 rounded-3xl glass border border-gray-100 dark:border-white/5 hover:border-accent/30 transition-all duration-500"
-                            >
-                                <div className="flex items-start gap-6">
-                                    <div className="p-4 bg-white dark:bg-white/10 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 group-hover:bg-accent group-hover:border-accent group-hover:scale-110 transition-all duration-500">
-                                        <Image src={isDarkMode ? channel.iconDark : channel.icon} alt="" className="w-6 h-6 group-hover:invert-0 dark:group-hover:invert" />
-                                    </div>
-                                    <div className="flex-1 space-y-1">
-                                        <h3 className="text-sm font-outfit font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{channel.title}</h3>
-                                        <p className="text-lg font-outfit font-semibold text-gray-800 dark:text-gray-200 line-clamp-1">{channel.value}</p>
-
-                                        {channel.link ? (
-                                            <a href={channel.link} target="_blank" className="inline-block pt-2 text-xs font-outfit font-bold text-accent hover:underline decoration-accent/30 underline-offset-4 tracking-wider uppercase">
-                                                {channel.actionLabel}
-                                            </a>
-                                        ) : channel.action ? (
-                                            <button onClick={channel.action} className="pt-2 text-xs font-outfit font-bold text-accent hover:underline decoration-accent/30 underline-offset-4 tracking-wider uppercase">
-                                                {channel.actionLabel}
-                                            </button>
-                                        ) : (
-                                            <span className="block pt-2 text-[10px] font-outfit font-bold text-gray-400 italic tracking-wider uppercase">
-                                                {channel.actionLabel}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-
-                        {/* Creative Indicator */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            className="pt-12 hidden lg:block"
-                        >
-                            <p className="font-ovo text-2xl italic text-gray-400 dark:text-gray-600 leading-snug">
-                                &quot;Ideas are easy. &quot;<br />
-                                <span className="text-accent underline decoration-accent/20">Implementation</span> is everything.&quot;
-                            </p>
-                        </motion.div>
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
+                  <TiltCard className="p-4 sm:p-5 rounded-2xl glass-panel border border-gray-200/80 dark:border-white/10 shadow-md space-y-2.5 group hover:border-accent/40 transition-all">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="text-[9px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+                            {ch.badge}
+                          </p>
+                          <h4 className="text-sm sm:text-base font-outfit font-bold text-slate-900 dark:text-white">
+                            {ch.title}
+                          </h4>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Right: Message Form */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        className="lg:col-span-3 h-full"
-                    >
-                        <form onSubmit={onSubmit} className="h-full glass p-10 sm:p-14 rounded-[3rem] border border-gray-100 dark:border-white/5 space-y-8 shadow-2xl shadow-accent/[0.02]">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                                <div className="space-y-3">
-                                    <label className="text-xs font-outfit font-bold uppercase tracking-widest text-gray-400 ml-1">Identity</label>
-                                    <input
-                                        type='text' placeholder='Your Name' required name='name'
-                                        className='w-full p-5 rounded-2xl bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 outline-none focus:border-accent/40 focus:bg-white dark:focus:bg-white/10 transition-all duration-300 font-outfit'
-                                    />
-                                </div>
-                                <div className="space-y-3">
-                                    <label className="text-xs font-outfit font-bold uppercase tracking-widest text-gray-400 ml-1">Reach</label>
-                                    <input
-                                        type='email' placeholder='Email Address' required name='email'
-                                        className='w-full p-5 rounded-2xl bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 outline-none focus:border-accent/40 focus:bg-white dark:focus:bg-white/10 transition-all duration-300 font-outfit'
-                                    />
-                                </div>
-                            </div>
+                    <div className="flex items-center justify-between pt-1.5 border-t border-gray-200/60 dark:border-white/5">
+                      <span className="text-xs font-mono text-slate-600 dark:text-slate-300 truncate max-w-[180px]">
+                        {ch.value}
+                      </span>
 
-                            <div className="space-y-3 text-left">
-                                <label className="text-xs font-outfit font-bold uppercase tracking-widest text-gray-400 ml-1">The Concept</label>
-                                <textarea
-                                    placeholder='Tell me about your project or just say hi...' required name='message' rows={6}
-                                    className='w-full p-6 rounded-3xl bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 outline-none focus:border-accent/40 focus:bg-white dark:focus:bg-white/10 transition-all duration-300 font-outfit resize-none'
-                                />
-                            </div>
+                      {ch.action ? (
+                        <button
+                          onClick={ch.action}
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-accent hover:text-accent-light uppercase tracking-wider"
+                        >
+                          {(ch.title.includes('Email') && copiedEmail) || (ch.title.includes('Phone') && copiedPhone) ? (
+                            <Check className="w-3 h-3 text-emerald-400" />
+                          ) : (
+                            <Copy className="w-3 h-3" />
+                          )}
+                          <span>{ch.actionLabel}</span>
+                        </button>
+                      ) : (
+                        <a
+                          href={ch.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-accent hover:text-accent-light uppercase tracking-wider"
+                        >
+                          <span>{ch.actionLabel}</span>
+                          <ArrowUpRight className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              );
+            })}
 
-                            <div className="space-y-6 pt-4">
-                                <motion.button
-                                    whileHover={{ y: -5 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={status === "loading"}
-                                    type='submit'
-                                    className='group w-full py-6 bg-accent text-white rounded-2xl font-outfit font-bold text-lg flex items-center justify-center gap-3 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-accent/30 disabled:opacity-70 disabled:grayscale'
-                                >
-                                    {status === "loading" ? "Processing..." : "Dispatch Message"}
-                                    <Image src={assets.right_arrow_white} alt='' className='w-5 group-hover:translate-x-1.5 transition-transform' />
-                                </motion.button>
+            {/* Studio Context Widget */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="p-4 sm:p-5 rounded-2xl glass-card border border-gray-200/60 dark:border-white/5 space-y-2"
+            >
+              <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                <MapPin className="w-3.5 h-3.5 text-rose-500" />
+                <span>Kalpitiya / Havelock Town, Colombo, Sri Lanka</span>
+              </div>
+              <p className="text-xs font-outfit text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                Operating in <span className="font-semibold text-slate-900 dark:text-white">GMT+5:30</span>. Open for software engineering roles, hybrid, and remote teams worldwide.
+              </p>
+            </motion.div>
+          </div>
 
-                                <AnimatePresence mode='wait'>
-                                    {result && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, scale: 0.95 }}
-                                            className={`p-5 rounded-2xl text-center text-sm font-outfit font-bold flex items-center justify-center gap-3 ${status === "success" ? "bg-green-500/10 text-green-500 border border-green-500/20" :
-                                                status === "error" ? "bg-red-500/10 text-red-500 border border-red-500/20" :
-                                                    "bg-gray-100 dark:bg-white/5 text-gray-500"
-                                                }`}
-                                        >
-                                            {status === "success" && <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />}
-                                            {result}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </form>
-                    </motion.div>
+          {/* Right Column: Web3Forms Dispatch Hub (7 Cols) */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="rounded-3xl glass-panel border border-gray-200/80 dark:border-white/10 p-6 sm:p-8 shadow-xl space-y-6 relative overflow-hidden"
+            >
+              <div className="space-y-1.5">
+                <h3 className="text-xl sm:text-2xl font-outfit font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-accent" />
+                  Dispatch Direct Inquiry
+                </h3>
+                <p className="text-xs font-outfit text-slate-500 dark:text-slate-400 font-light">
+                  Fill out the parameters below to send a high-priority alert directly to my inbox.
+                </p>
+              </div>
+
+              <form onSubmit={onSubmit} className="space-y-4">
+                {/* Honeypot Botcheck (Anti-Spam Security) */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: 'none' }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Name Input */}
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      maxLength={100}
+                      autoComplete="name"
+                      placeholder="e.g. Alex Morgan"
+                      className="w-full px-4 py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
+                    />
+                  </div>
+
+                  {/* Email Input */}
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400">
+                      Your Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      maxLength={150}
+                      autoComplete="email"
+                      placeholder="e.g. alex@company.com"
+                      className="w-full px-4 py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
+                    />
+                  </div>
                 </div>
-            </div>
-        </section>
-    );
-};
 
-export default Contact;
+                {/* Subject Input */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400">
+                    Project / Role Inquiry
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    maxLength={200}
+                    placeholder="e.g. Full-Time Software Engineer Role / FastAPI Backend / React Project"
+                    className="w-full px-4 py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
+                  />
+                </div>
+
+                {/* Message Input */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400">
+                    Project Scope / Message
+                  </label>
+                  <textarea
+                    name="message"
+                    required
+                    maxLength={3000}
+                    rows={4}
+                    placeholder="Describe your requirements, timeline, or engineering opportunity..."
+                    className="w-full p-4 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all resize-none"
+                  />
+                </div>
+
+                {/* Submit Action */}
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  disabled={status === 'loading'}
+                  type="submit"
+                  className="w-full py-4 rounded-xl bg-accent text-white font-outfit font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-accent/25 hover:shadow-accent/40 disabled:opacity-60 transition-all cursor-pointer"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>{status === 'loading' ? 'Dispatching Message...' : 'Dispatch Message'}</span>
+                </motion.button>
+
+                {/* Submission Feedback Toast */}
+                <AnimatePresence>
+                  {result && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className={`p-4 rounded-2xl text-xs sm:text-sm font-mono font-semibold flex items-center gap-2 ${
+                        status === 'success'
+                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                          : status === 'error'
+                          ? 'bg-rose-500/10 text-rose-400 border border-rose-500/30'
+                          : 'bg-white/5 text-slate-300'
+                      }`}
+                    >
+                      <Sparkles className="w-4 h-4 flex-shrink-0" />
+                      <span>{result}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

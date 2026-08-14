@@ -1,207 +1,211 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { assets } from '@/assets/assets';
-import Image, { StaticImageData } from 'next/image';
+'use client';
 
-interface ExperienceData {
-    year: string;
-    title: string;
-    company: string;
-    duration: string;
-    description: string;
-    skills: string[];
-    metrics: string[];
-    icon: StaticImageData;
-}
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Sparkles, Briefcase, Calendar, CheckCircle, GraduationCap, Building2, ShieldAlert, Award, MapPin } from 'lucide-react';
+import TiltCard from './TiltCard';
 
-const Experience = () => {
-    const experiences: ExperienceData[] = [
-        {
-            year: "2025",
-            title: "Freelance Full Stack Software Engineer",
-            company: "Global Solutions",
-            duration: "2025 - Present",
-            description: "Architecting high-performance digital ecosystems. Specializing in bridging creative vision with robust technical execution through end-to-end full-stack development.",
-            skills: ["Next.js", "Flutter", "Firebase", "System Design"],
-            metrics: ["100% Delivery", "Scalable UX"],
-            icon: assets.project_icon
-        },
-        {
-            year: "2025",
-            title: "Full Stack Software Engineer (Intern)",
-            company: "NAITA Head Office",
-            duration: "2025 - 2026",
-            description: "Engineered critical internal systems with a focus on Python-driven backend optimization and responsive frontend architectures. Delivered high-precision data processing modules.",
-            skills: ["Python (Expert)", "Django", "React", "PostgreSQL"],
-            metrics: ["Backend Logic", "UI Precision"],
-            icon: assets.code_icon
-        }
-    ];
+export default function Experience() {
+  const experiences = [
+    {
+      period: '05/2026 – Present',
+      role: 'Associate Software Engineer',
+      company: 'NETWORK WIZARD SDN BHD',
+      location: 'Havelock Town, Colombo',
+      type: 'Professional Experience',
+      description:
+        'Developed automation and cybersecurity solutions using React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Celery, SQLAlchemy, and REST APIs with secure authentication and scalable backend architecture. Built ChronoSentinel AI, an AI-driven domain risk intelligence platform integrating security intelligence sources (Wayback Machine, VirusTotal, SecurityTrails) for threat detection, historical analysis, and real-time risk insights.',
+      skills: ['Python', 'FastAPI', 'React', 'TypeScript', 'PostgreSQL', 'Redis', 'Docker', 'Celery', 'SQLAlchemy', 'REST APIs'],
+      metrics: ['ChronoSentinel AI Lead', 'Threat Intel Integration', 'High-Throughput APIs'],
+      icon: ShieldAlert,
+    },
+    {
+      period: '09/2025 – 03/2026',
+      role: 'Full Stack Software Engineer Intern',
+      company: 'NAITA - Head Office',
+      location: 'Sri Lanka',
+      type: 'Engineering Internship',
+      description:
+        'Developed RESTful APIs using Django and Python with authentication, role-based access control, and PostgreSQL/SQLite database management. Built and integrated full-stack modules with React, Tailwind CSS, reusable components, testing, and performance optimization.',
+      skills: ['Django', 'Python', 'React', 'Tailwind CSS', 'PostgreSQL', 'SQLite', 'REST APIs', 'RBAC Auth'],
+      metrics: ['RESTful API Suite', 'Database Optimization', 'Component Architecture'],
+      icon: Building2,
+    },
+    {
+      period: '2023 – Present',
+      role: 'Higher National Diploma in Information Technology (HNDIT)',
+      company: 'SLIATE (ATI Dehiwala)',
+      location: 'Dehiwala, Sri Lanka',
+      type: 'Higher Education',
+      description:
+        'Specializing in advanced software engineering, data structures & algorithms, relational database architectures, and full-stack software development lifecycle.',
+      skills: ['Data Structures', 'OOP Paradigm', 'System Analysis', 'Software Lifecycle', 'SQL'],
+      metrics: ['Excellence in IT', 'Hands-on System Projects'],
+      icon: GraduationCap,
+    },
+    {
+      period: '2022',
+      role: 'GCE Advanced Level (A/L)',
+      company: 'Kal/ Nirmala Matha Sinhala National College',
+      location: 'Kalpitiya, Sri Lanka',
+      type: 'Secondary Education',
+      description: 'Completed secondary education with focused studies.',
+      skills: ['Mathematics', 'Analytical Problem Solving'],
+      metrics: ['College Graduate'],
+      icon: Award,
+    },
+    {
+      period: '2019',
+      role: 'Diploma in English & IT',
+      company: 'Esoft Metro Campus',
+      location: 'Chilaw, Sri Lanka',
+      type: 'Professional Certification',
+      description: 'Foundational certification in information technology and professional English communication.',
+      skills: ['IT Fundamentals', 'Professional English'],
+      metrics: ['Certified Distinction'],
+      icon: GraduationCap,
+    },
+  ];
 
-    return (
-        <section id="experience" className="w-full px-[5%] py-40 relative overflow-hidden bg-gray-50/30 dark:bg-transparent">
+  return (
+    <section id="experience" className="w-full px-[5%] lg:px-[10%] py-20 sm:py-24 scroll-mt-20 relative overflow-hidden">
+      {/* Ambient background bloom */}
+      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none -z-10" />
 
-            {/* Ambient Background Elements */}
-            <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] -z-10" />
-            <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[150px] -z-10" />
-
-            <div className="max-w-7xl mx-auto">
-                {/* Section Header */}
-                <div className="flex flex-col md:flex-row items-end justify-between mb-32 gap-8">
-                    <div className="space-y-6">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            className="flex items-center gap-3"
-                        >
-                            <span className="w-12 h-[2px] bg-accent" />
-                            <span className="text-accent font-outfit font-bold uppercase tracking-[0.4em] text-xs">Chronicle</span>
-                        </motion.div>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="text-6xl md:text-8xl font-outfit font-bold tracking-tight"
-                        >
-                            The Kinetic <span className="text-gray-300 dark:text-gray-700 italic">Ledger.</span>
-                        </motion.h2>
-                    </div>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        className="max-w-xs text-gray-500 dark:text-gray-400 font-outfit text-sm leading-relaxed"
-                    >
-                        Mapping the evolution of technical precision and creative problem-solving across global and institutional domains.
-                    </motion.p>
-                </div>
-
-                {/* The Ledger Flow */}
-                <div className="space-y-24 relative">
-                    {/* Centered Vertical Flow Line */}
-                    <div className="absolute left-[21px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-gray-200 dark:via-white/10 to-transparent" />
-
-                    {experiences.map((exp, idx) => (
-                        <ExperienceCard key={idx} exp={exp} index={idx} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
-
-const ExperienceCard = ({ exp, index }: { exp: ExperienceData, index: number }) => {
-    const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
-
-    const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
-    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-    const ghostX = useTransform(scrollYProgress, [0, 1], [index % 2 === 0 ? -30 : 30, index % 2 === 0 ? 30 : -30]);
-
-    return (
-        <div ref={containerRef} className="relative w-full flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
-
-            {/* Ghost Year Background */}
+      <div className="max-w-7xl mx-auto space-y-14">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-3">
             <motion.div
-                style={{ x: ghostX, opacity }}
-                className={`absolute top-1/2 -translate-y-1/2 hidden lg:block select-none pointer-events-none ${index % 2 === 0 ? 'right-10' : 'left-10'}`}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent font-mono text-xs uppercase tracking-widest"
             >
-                <h3 className="text-[10vw] font-outfit font-bold text-gray-100 dark:text-white/[0.015] leading-none uppercase">
-                    {exp.year}
-                </h3>
+              <Sparkles className="w-3.5 h-3.5" />
+              04 // Career Chronicle
             </motion.div>
-
-            {/* Content Card */}
-            <motion.div
-                style={{ rotateX, scale, opacity }}
-                className={`w-full md:w-[38%] relative z-10 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl sm:text-5xl font-outfit font-extrabold tracking-tight"
             >
-                <div className="group relative p-7 md:p-9 rounded-[2.5rem] glass border border-gray-100 dark:border-white/5 hover:border-accent/40 transition-all duration-700 overflow-hidden shadow-xl">
+              The Kinetic <span className="text-gradient-cyber">Ledger.</span>
+            </motion.h2>
+          </div>
 
-                    {/* Inner Accent Glow */}
-                    <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/15 transition-all duration-700" />
-
-                    <div className="relative z-10">
-                        <div className="flex items-start justify-between mb-8">
-                            <div className="p-4 rounded-2xl glass-light border border-gray-100 dark:border-white/10 group-hover:scale-110 transition-transform duration-500">
-                                <Image src={exp.icon} alt="" className="w-6 h-6 object-contain dark:invert" />
-                            </div>
-                            <div className="text-right">
-                                <p className="text-[9px] font-outfit font-bold text-accent uppercase tracking-[0.3em] mb-1">Timeline</p>
-                                <p className="text-xs font-outfit font-bold text-gray-900 dark:text-gray-100 tabular-nums">{exp.duration}</p>
-                            </div>
-                        </div>
-
-                        <h3 className="text-xl md:text-2xl font-outfit font-bold mb-2 tracking-tight group-hover:text-accent transition-colors duration-500">{exp.title}</h3>
-                        <p className="text-[10px] font-outfit font-bold text-gray-400 dark:text-gray-500 mb-6 uppercase tracking-widest">{exp.company}</p>
-
-                        <p className="text-gray-600 dark:text-gray-400 font-outfit leading-relaxed mb-8 text-sm md:text-[13px]">
-                            {exp.description}
-                        </p>
-
-                        {/* Technical Metadata Grids */}
-                        <div className="grid grid-cols-2 gap-6 pt-6 border-t border-gray-100 dark:border-white/5">
-                            <div className="space-y-2">
-                                <h4 className="text-[8px] font-outfit font-bold text-gray-400 uppercase tracking-widest">Stack Focus</h4>
-                                <div className="flex flex-wrap gap-1.5">
-                                    {exp.skills.map((s: string) => (
-                                        <span key={s} className="text-[9px] font-outfit font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-white/5 px-2.5 py-1 rounded-lg">
-                                            {s}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="space-y-2 text-right">
-                                <h4 className="text-[8px] font-outfit font-bold text-gray-400 uppercase tracking-widest">Key Logic</h4>
-                                <div className="flex flex-col gap-1 items-end">
-                                    {exp.metrics.map((m: string) => (
-                                        <span key={m} className="text-[9px] font-outfit font-bold text-accent italic">{m}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
-
-            {/* Geometric Flow Node */}
-            <div className="absolute left-[21px] md:left-1/2 md:-translate-x-1/2 top-10 md:top-1/2 md:-translate-y-1/2 z-20">
-                <motion.div
-                    whileInView={{ scale: [0.8, 1.2, 1] }}
-                    className="relative w-8 h-8 flex items-center justify-center"
-                >
-                    <div className="absolute inset-0 bg-accent/20 rounded-full blur-sm animate-pulse" />
-                    <div className="w-3 h-3 rounded-full bg-accent border-[3px] border-white dark:border-darkTheme shadow-[0_0_15px_rgba(var(--accent-rgb),0.5)]" />
-
-                    {/* Orbiting Ring */}
-                    <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 border border-dashed border-accent/20 rounded-full"
-                    />
-                </motion.div>
-            </div>
-
-            {/* Data Stream Annotation */}
-            <motion.div
-                style={{ opacity }}
-                className={`hidden md:block w-[38%] space-y-3 ${index % 2 === 0 ? 'md:order-2 text-left pl-12' : 'md:order-1 text-right pr-12'}`}
-            >
-                <div className="space-y-1">
-                    <p className="text-[8px] font-outfit font-bold text-gray-300 dark:text-gray-700 uppercase tracking-[0.5em]">System.Chronicle.Node_{index + 1}</p>
-                    <div className={`w-10 h-[1px] bg-accent/30 ${index % 2 === 0 ? 'ml-0' : 'ml-auto'}`} />
-                </div>
-                <div className="font-outfit text-[9px] text-gray-400 dark:text-gray-600 font-medium tracking-tight">
-                    <p>PRECISION_ENGINEERING_SEQ</p>
-                    <p className="tabular-nums">00{index + 1}_V_OPTIMIZED</p>
-                </div>
-            </motion.div>
-
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="max-w-md text-slate-600 dark:text-slate-400 font-outfit text-sm sm:text-base leading-relaxed"
+          >
+            Chronicle of professional engineering milestones, corporate impact, and academic foundation.
+          </motion.p>
         </div>
-    );
-};
 
-export default Experience;
+        {/* Timeline Flow */}
+        <div className="relative space-y-8">
+          {/* Vertical Energy Conduit Line */}
+          <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-accent via-cyan-500 to-transparent opacity-30" />
+
+          {experiences.map((exp, idx) => {
+            const Icon = exp.icon;
+            const isEven = idx % 2 === 0;
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.12 }}
+                className={`relative flex flex-col md:flex-row items-center gap-6 ${
+                  isEven ? 'md:flex-row-reverse' : ''
+                }`}
+              >
+                {/* 3D Timeline Node Bead */}
+                <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-7 h-7 rounded-full glass-panel border-2 border-accent flex items-center justify-center z-20 shadow-md shadow-accent/30">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                </div>
+
+                {/* Content Card (Half Width) */}
+                <div className="w-full md:w-[46%] pl-10 md:pl-0">
+                  <TiltCard className="p-5 sm:p-6 rounded-3xl glass-panel border border-gray-200/80 dark:border-white/10 shadow-lg space-y-4 group hover:border-accent/40 transition-all">
+                    {/* Header: Role & Timeline */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-gray-200/60 dark:border-white/5 pb-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-accent">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-mono font-bold text-accent uppercase tracking-wider">
+                            {exp.type}
+                          </span>
+                          <h4 className="text-base sm:text-lg font-outfit font-bold text-slate-900 dark:text-white">
+                            {exp.role}
+                          </h4>
+                        </div>
+                      </div>
+
+                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full glass-card text-[11px] font-mono text-cyan-400 self-start sm:self-auto font-semibold">
+                        <Calendar className="w-3 h-3" />
+                        {exp.period}
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">
+                        <span>{exp.company}</span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1 text-slate-400">
+                          <MapPin className="w-3 h-3 text-rose-400" />
+                          {exp.location}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-outfit text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                        {exp.description}
+                      </p>
+                    </div>
+
+                    {/* Skill Tags */}
+                    <div className="space-y-1.5">
+                      <div className="flex flex-wrap gap-1">
+                        {exp.skills.map((s, i) => (
+                          <span
+                            key={i}
+                            className="px-2 py-0.5 rounded-md bg-gray-100 dark:bg-white/5 text-[10px] font-mono text-slate-700 dark:text-slate-300 font-medium"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Key Metrics */}
+                    <div className="pt-2 border-t border-gray-200/60 dark:border-white/5 flex flex-wrap gap-2.5">
+                      {exp.metrics.map((m, i) => (
+                        <span
+                          key={i}
+                          className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-500 font-semibold"
+                        >
+                          <CheckCircle className="w-3 h-3" />
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  </TiltCard>
+                </div>
+
+                {/* Empty Half on Desktop to balance the alternating layout */}
+                <div className="hidden md:block w-[46%]" />
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
