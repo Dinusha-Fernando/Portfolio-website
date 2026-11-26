@@ -3,7 +3,9 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Sparkles,
+  Milestone,
+  Route,
+  Target,
   Briefcase,
   Calendar,
   CheckCircle2,
@@ -324,7 +326,7 @@ export default function Experience() {
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent dark:text-accent-light font-mono text-xs uppercase tracking-widest border border-accent/20"
             >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <Milestone className="w-3.5 h-3.5 text-accent" />
               <span>04 // PROFESSIONAL & ACADEMIC JOURNEY</span>
             </motion.div>
 
@@ -681,7 +683,7 @@ export default function Experience() {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between pb-1 border-b border-gray-200/40 dark:border-white/10">
                         <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-                          <Sparkles className="w-3.5 h-3.5 text-accent" />
+                          <Target className="w-3.5 h-3.5 text-accent" />
                           <span>{activeMilestone.contributionsHeader}</span>
                         </div>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-accent/15 text-accent-light font-bold">
@@ -854,7 +856,7 @@ export default function Experience() {
           className="p-8 sm:p-10 rounded-[32px] glass-panel border border-accent/30 dark:border-white/10 shadow-2xl relative overflow-hidden bg-gradient-to-br from-accent/10 via-slate-900/5 to-cyan-500/10 text-center space-y-4"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent/15 text-accent dark:text-accent-light font-mono text-xs uppercase tracking-wider font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Route className="w-3.5 h-3.5" />
             <span>THE JOURNEY CONTINUES</span>
           </div>
 
