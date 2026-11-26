@@ -59,12 +59,12 @@ export default function Navbar({ isDarkMode, setDarkMode }: NavbarProps) {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'py-3' : 'py-5'
+          isScrolled ? 'py-2 sm:py-3' : 'py-3 sm:py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div
-            className={`flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-500 ${
+            className={`flex items-center justify-between px-3 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-500 ${
               isScrolled
                 ? 'glass-panel shadow-glass border-gray-200/80 dark:border-white/10'
                 : 'bg-transparent'

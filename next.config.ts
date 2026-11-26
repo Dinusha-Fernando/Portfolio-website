@@ -5,7 +5,19 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  webpack: (config, { dev }) => {
+    if (dev) {
+      // Use in-memory cache during dev to prevent disk-exhaustion ENOENT pack errors
+      config.cache = {
+        type: "memory",
+      };
+    }
+    return config;
+  },
   async headers() {
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
     return [
       {
         source: "/:path*",

@@ -84,12 +84,12 @@ export default function Footer({ isDarkMode }: FooterProps) {
                     DINUSHA FERNANDO
                   </h3>
                   <p className="font-mono text-xs text-accent font-semibold uppercase tracking-wider">
-                    Software Developer
+                    Software Engineer · Founder @ Zylux
                   </p>
                 </div>
               </div>
               <p className="text-sm font-outfit text-slate-600 dark:text-slate-400 leading-relaxed font-light max-w-sm">
-                Software Developer @ Network Wizard SDN BHD. Architecting scalable backends, full-stack web platforms, and automated digital solutions.
+                Software Engineer & Founder @ Zylux Software Solutions. Specializing in full-stack architecture, intelligent automation, and cybersecurity intelligence platforms.
               </p>
               <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                 <MapPin className="w-3.5 h-3.5 text-rose-500" />
@@ -149,10 +149,10 @@ export default function Footer({ isDarkMode }: FooterProps) {
                 href="mailto:dkalharafernando@gmail.com"
                 className="p-3.5 rounded-xl glass-card flex items-center justify-between hover:border-accent/40 text-xs font-outfit font-semibold text-slate-700 dark:text-slate-300 transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-accent" /> dkalharafernando@gmail.com
+                <span className="flex items-center gap-2.5 truncate max-w-[210px] xs:max-w-none">
+                  <Mail className="w-4 h-4 text-accent shrink-0" /> <span className="truncate">dkalharafernando@gmail.com</span>
                 </span>
-                <span className="text-slate-400">✉</span>
+                <span className="text-slate-400 shrink-0">✉</span>
               </a>
 
               <a
@@ -160,9 +160,9 @@ export default function Footer({ isDarkMode }: FooterProps) {
                 className="p-3.5 rounded-xl glass-card flex items-center justify-between hover:border-accent/40 text-xs font-outfit font-semibold text-slate-700 dark:text-slate-300 transition-colors"
               >
                 <span className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-emerald-400" /> +94 77 582 9018
+                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" /> +94 77 582 9018
                 </span>
-                <span className="text-slate-400">📞</span>
+                <span className="text-slate-400 shrink-0">📞</span>
               </a>
 
               <a
@@ -172,9 +172,9 @@ export default function Footer({ isDarkMode }: FooterProps) {
                 className="p-3.5 rounded-xl glass-card flex items-center justify-between hover:border-accent/40 text-xs font-outfit font-semibold text-slate-700 dark:text-slate-300 transition-colors"
               >
                 <span className="flex items-center gap-2.5">
-                  <LinkedinIcon className="w-4 h-4 text-accent" /> LinkedIn Profile
+                  <LinkedinIcon className="w-4 h-4 text-accent shrink-0" /> LinkedIn Profile
                 </span>
-                <span className="text-slate-400">↗</span>
+                <span className="text-slate-400 shrink-0">↗</span>
               </a>
 
               <a
@@ -184,20 +184,20 @@ export default function Footer({ isDarkMode }: FooterProps) {
                 className="p-3.5 rounded-xl glass-card flex items-center justify-between hover:border-accent/40 text-xs font-outfit font-semibold text-slate-700 dark:text-slate-300 transition-colors"
               >
                 <span className="flex items-center gap-2.5">
-                  <GithubIcon className="w-4 h-4 text-accent" /> GitHub Repository
+                  <GithubIcon className="w-4 h-4 text-accent shrink-0" /> GitHub Repository
                 </span>
-                <span className="text-slate-400">↗</span>
+                <span className="text-slate-400 shrink-0">↗</span>
               </a>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar: Copyright & Return to Top */}
-        <div className="pt-8 border-t border-gray-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-          <div className="flex items-center gap-2">
+        <div className="pt-8 border-t border-gray-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span>© {currentYear} Dinusha Fernando.</span>
             <span>•</span>
-            <span>Associate Software Engineer</span>
+            <span>Software Engineer · Founder @ Zylux</span>
           </div>
 
           <motion.a

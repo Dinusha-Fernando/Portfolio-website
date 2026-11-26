@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Ovo&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +10,10 @@
     --foreground: 15 23 42;
     --accent-rgb: 124, 58, 237;
     --cyan-rgb: 6, 182, 212;
+    --font-outfit: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-space: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-ovo: 'Ovo', serif;
   }
 
   .dark {
@@ -15,6 +21,10 @@
     --foreground: 248 250 252;
     --accent-rgb: 139, 92, 246;
     --cyan-rgb: 6, 182, 212;
+    --font-outfit: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-space: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-ovo: 'Ovo', serif;
   }
 
   * {
@@ -23,11 +33,16 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body {
     @apply bg-white dark:bg-darkTheme text-slate-900 dark:text-slate-100 antialiased selection:bg-accent/30 selection:text-white transition-colors duration-500 overflow-x-hidden;
     font-family: var(--font-outfit), sans-serif;
+    max-width: 100vw;
+    position: relative;
+    width: 100%;
   }
 }
 
@@ -143,4 +158,52 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.glow-ambient {
+  box-shadow: 0 0 80px -20px rgba(124, 58, 237, 0.4);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 80px -20px rgba(6, 182, 212, 0.4);
+}
+
+/* 3D Transform Utilities for Bento / Card Effects */
+.rotate-y-12 {
+  transform: rotateY(12deg);
+}
+
+.rotate-x-12 {
+  transform: rotateX(12deg);
+}
+
+.-rotate-y-12 {
+  transform: rotateY(-12deg);
+}
+
+.-rotate-x-12 {
+  transform: rotateX(-12deg);
+}
+
+/* Hide spin buttons for inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.03);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
 }

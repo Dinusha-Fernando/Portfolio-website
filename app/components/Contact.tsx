@@ -35,23 +35,32 @@ export default function Contact({ isDarkMode }: ContactProps) {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus('loading');
-    setResult('Dispatching message to Dinusha...');
+    setResult('Dispatching message directly to Dinusha...');
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    formData.append('access_key', '5f73c76a-f09f-4228-8f3b-9ddc940ea74f');
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+      botcheck: (form.elements.namedItem('botcheck') as HTMLInputElement)?.checked || false,
+    };
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (data.success) {
         setStatus('success');
-        setResult('Message received! I will review and reply within 24 hours.');
+        setResult('Message delivered directly to my inbox! I will review and reply promptly.');
         form.reset();
 
         // Confetti explosion
@@ -107,11 +116,11 @@ export default function Contact({ isDarkMode }: ContactProps) {
   ];
 
   return (
-    <section id="contact" className="w-full px-[5%] lg:px-[10%] py-20 sm:py-24 scroll-mt-20 relative overflow-hidden">
+    <section id="contact" className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-24 scroll-mt-20 relative overflow-hidden">
       {/* Ambient background bloom */}
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[180px] pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto space-y-14">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-14">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3">
@@ -129,7 +138,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-5xl font-outfit font-extrabold tracking-tight"
+              className="text-2xl xs:text-3xl sm:text-5xl font-outfit font-extrabold tracking-tight"
             >
               Let&apos;s Build <span className="text-gradient-cyber">Something Iconic.</span>
             </motion.h2>
@@ -228,14 +237,14 @@ export default function Contact({ isDarkMode }: ContactProps) {
             </motion.div>
           </div>
 
-          {/* Right Column: Web3Forms Dispatch Hub (7 Cols) */}
+          {/* Right Column: Direct Dispatch Hub (7 Cols) */}
           <div className="lg:col-span-7">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="rounded-3xl glass-panel border border-gray-200/80 dark:border-white/10 p-6 sm:p-8 shadow-xl space-y-6 relative overflow-hidden"
+              className="rounded-2xl sm:rounded-3xl glass-panel border border-gray-200/80 dark:border-white/10 p-4 xs:p-6 sm:p-8 shadow-xl space-y-6 relative overflow-hidden"
             >
               <div className="space-y-1.5">
                 <h3 className="text-xl sm:text-2xl font-outfit font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -271,7 +280,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
                       maxLength={100}
                       autoComplete="name"
                       placeholder="e.g. Alex Morgan"
-                      className="w-full px-4 py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
+                      className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
                     />
                   </div>
 
@@ -287,7 +296,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
                       maxLength={150}
                       autoComplete="email"
                       placeholder="e.g. alex@company.com"
-                      className="w-full px-4 py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
+                      className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
                     />
                   </div>
                 </div>
@@ -302,7 +311,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
                     name="subject"
                     maxLength={200}
                     placeholder="e.g. Full-Time Software Engineer Role / FastAPI Backend / React Project"
-                    className="w-full px-4 py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all"
                   />
                 </div>
 
@@ -317,7 +326,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
                     maxLength={3000}
                     rows={4}
                     placeholder="Describe your requirements, timeline, or engineering opportunity..."
-                    className="w-full p-4 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all resize-none"
+                    className="w-full p-3.5 sm:p-4 rounded-xl bg-white/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 outline-none focus:border-accent font-outfit text-xs sm:text-sm text-slate-900 dark:text-white transition-all resize-none"
                   />
                 </div>
 
