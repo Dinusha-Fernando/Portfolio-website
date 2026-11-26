@@ -13,7 +13,7 @@ import {
   MessageSquare,
   Smartphone,
   MapPin,
-  Sparkles,
+  Terminal,
 } from 'lucide-react';
 import Hero3DPortrait from './Hero3DPortrait';
 
@@ -111,7 +111,7 @@ export default function Header({ isDarkMode }: HeaderProps) {
             transition={{ duration: 0.35 }}
             className="flex items-center gap-1.5 text-[10px] xs:text-[11px] font-mono font-bold tracking-[0.2em] text-accent dark:text-accent-light uppercase"
           >
-            <Sparkles className="w-3.5 h-3.5 text-accent shrink-0" />
+            <Terminal className="w-3.5 h-3.5 text-accent shrink-0" />
             <span>SOFTWARE ENGINEER / DIGITAL INNOVATOR</span>
           </motion.div>
 

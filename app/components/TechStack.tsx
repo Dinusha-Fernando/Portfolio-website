@@ -12,7 +12,6 @@ import {
   Bot,
   MessageSquare,
   CheckCircle2,
-  Sparkles,
   Cpu,
   Layers,
   Workflow,
@@ -202,7 +201,7 @@ export default function TechStack() {
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent dark:text-accent-light font-mono text-xs uppercase tracking-widest border border-accent/20"
             >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <Cpu className="w-3.5 h-3.5 text-accent" />
               <span>02 // Capabilities & Stack</span>
             </motion.div>
 

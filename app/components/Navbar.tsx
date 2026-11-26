@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { assets } from '@/assets/assets';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Moon, Sun, Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Moon, Sun, Menu, X, ArrowUpRight, Compass } from 'lucide-react';
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -208,7 +208,7 @@ export default function Navbar({ isDarkMode, setDarkMode }: NavbarProps) {
           >
             <div className="flex items-center justify-between pb-3 border-b border-gray-200/50 dark:border-white/5">
               <span className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-accent" /> Navigation
+                <Compass className="w-3.5 h-3.5 text-accent" /> Navigation
               </span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-[10px] font-mono font-semibold text-emerald-500">
                 ● Available

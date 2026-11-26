@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Mail, Copy, Check, Send, MapPin, Phone, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { Mail, Copy, Check, Send, MapPin, Phone, ArrowUpRight, MessageSquare } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import confetti from 'canvas-confetti';
 import TiltCard from './TiltCard';
@@ -130,7 +130,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent font-mono text-xs uppercase tracking-widest"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <MessageSquare className="w-3.5 h-3.5" />
               06 // Direct Dialogue
             </motion.div>
             <motion.h2
@@ -357,7 +357,7 @@ export default function Contact({ isDarkMode }: ContactProps) {
                           : 'bg-white/5 text-slate-300'
                       }`}
                     >
-                      <Sparkles className="w-4 h-4 flex-shrink-0" />
+                      <Check className="w-4 h-4 flex-shrink-0" />
                       <span>{result}</span>
                     </motion.div>
                   )}

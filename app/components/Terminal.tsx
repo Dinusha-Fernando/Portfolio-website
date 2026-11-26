@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal as TerminalIcon, Sparkles, CornerDownLeft, Play, ShieldAlert, Cpu, Rocket, CheckCircle2 } from 'lucide-react';
+import { Terminal as TerminalIcon, CornerDownLeft, Play, ShieldAlert, Cpu, Rocket, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface CommandOutput {
@@ -242,7 +242,7 @@ export default function Terminal({ isDarkMode }: { isDarkMode: boolean }) {
         response = (
           <div className="space-y-2 p-3 bg-gradient-to-r from-accent/20 to-emerald-500/20 rounded-xl border border-emerald-500/30 text-xs sm:text-sm">
             <p className="text-emerald-400 font-bold flex items-center gap-2">
-              <Sparkles className="w-4 h-4" /> SUCCESS: Direct connection dispatched!
+              <CheckCircle2 className="w-4 h-4" /> SUCCESS: Direct connection dispatched!
             </p>
             <p className="text-slate-200">
               Dinusha is actively open to high-impact software engineering opportunities, enterprise contracts, strategic collaborations, and venture builds.

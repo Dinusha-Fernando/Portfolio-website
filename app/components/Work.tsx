@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { workData } from '@/assets/assets';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Sparkles,
+  FolderGit2,
   ArrowUpRight,
   Smartphone,
   Globe,
@@ -129,7 +129,7 @@ export default function Work({ isDarkMode }: WorkProps) {
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent dark:text-accent-light font-mono text-xs uppercase tracking-widest border border-accent/20"
             >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <FolderGit2 className="w-3.5 h-3.5 text-accent" />
               <span>03 // SELECTED WORKS & ENGINEERED SYSTEMS</span>
             </motion.div>
 
@@ -336,7 +336,7 @@ export default function Work({ isDarkMode }: WorkProps) {
                     {/* Hover Quick View Pill */}
                     <div className="absolute bottom-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="px-3 py-1 rounded-xl bg-white/90 dark:bg-black/85 backdrop-blur-md text-slate-900 dark:text-white text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg border border-accent/40">
-                        <Sparkles className="w-3 h-3 text-accent" /> Inspect System
+                        <ArrowUpRight className="w-3 h-3 text-accent" /> Inspect System
                       </span>
                     </div>
                   </div>
@@ -435,7 +435,7 @@ export default function Work({ isDarkMode }: WorkProps) {
           className="p-8 sm:p-10 rounded-[32px] glass-panel border border-accent/30 dark:border-white/10 shadow-2xl relative overflow-hidden bg-gradient-to-br from-accent/10 via-slate-900/5 to-cyan-500/10 text-center space-y-5"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent/15 text-accent dark:text-accent-light font-mono text-xs uppercase tracking-wider font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Layers className="w-3.5 h-3.5" />
             <span>BEYOND THE SHOWCASE</span>
           </div>
 

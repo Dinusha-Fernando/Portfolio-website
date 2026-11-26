@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
-  Sparkles,
   Terminal,
   Award,
   Briefcase,
@@ -95,7 +94,7 @@ export default function About({ isDarkMode }: AboutProps) {
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-accent dark:text-accent-light font-mono text-xs uppercase tracking-widest border border-accent/20"
             >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <Terminal className="w-3.5 h-3.5 text-accent" />
               <span>01 // BEHIND THE CODE</span>
             </motion.div>
 
@@ -306,7 +305,7 @@ export default function About({ isDarkMode }: AboutProps) {
               </div>
 
               <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-2xl glass-card border border-violet-500/30 font-mono text-xs font-bold text-violet-600 dark:text-violet-300 uppercase tracking-wide self-start md:self-auto">
-                <Sparkles className="w-3.5 h-3.5 text-accent" />
+                <Rocket className="w-3.5 h-3.5 text-accent" />
                 <span>Where Vision Meets Technology</span>
               </div>
             </div>

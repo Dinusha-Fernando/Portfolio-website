@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Sparkles, Cpu } from 'lucide-react';
+import { Cpu, Zap } from 'lucide-react';
 import Hero3DCanvas from './Hero3DCanvas';
 
 interface Hero3DPortraitProps {
@@ -186,7 +186,7 @@ export default function Hero3DPortrait({ isDarkMode }: Hero3DPortraitProps) {
             className="pointer-events-auto absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 glass-pill px-2.5 sm:px-4 py-1 sm:py-1.5 border border-accent/50 dark:border-accent-light/40 shadow-[0_15px_30px_-4px_rgba(124,58,237,0.4)] backdrop-blur-2xl bg-white/90 dark:bg-black/85 flex items-center gap-1.5 sm:gap-2 hover:border-accent-light transition-all hover:scale-105 max-w-[94%] xs:max-w-none"
           >
             <div className="p-1 rounded-md bg-accent/15 text-accent dark:text-accent-light shrink-0">
-              <Sparkles className="w-3 h-3 animate-spin-slow" />
+              <Zap className="w-3 h-3" />
             </div>
             <span className="text-[8px] xs:text-[9px] sm:text-[10px] font-mono font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-accent to-emerald-500 dark:from-cyan-300 dark:via-accent-light dark:to-emerald-300 uppercase truncate">
               Full-Stack & Automation Specialist

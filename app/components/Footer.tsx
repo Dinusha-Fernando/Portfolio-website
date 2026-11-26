@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { assets } from '@/assets/assets';
 import { motion } from 'framer-motion';
-import { ArrowUp, Sparkles, Clock, Globe, Mail, Heart, Phone, MapPin } from 'lucide-react';
+import { ArrowUp, Clock, Globe, Mail, Heart, Phone, MapPin } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 interface FooterProps {
