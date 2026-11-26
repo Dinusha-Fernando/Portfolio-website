@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     apple: '/logo.png',
   },
   verification: {
-    google: 'google70a4bcecb56a9dea',
+    google: '8CVQ78K_zSaU3K0Oc7uI6-SgIFfPyIh-mvvHt5k8CPw',
   },
 };
 
@@ -99,6 +99,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
+        <meta
+          name="google-site-verification"
+          content="8CVQ78K_zSaU3K0Oc7uI6-SgIFfPyIh-mvvHt5k8CPw"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
