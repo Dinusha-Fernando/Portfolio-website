@@ -11,6 +11,7 @@ import Experience from './components/Experience';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppBot from './components/WhatsAppBot';
 import Background3D from './components/Background3D';
 import CustomCursor from './components/CustomCursor';
 
@@ -78,6 +79,9 @@ export default function Home() {
 
       {/* Footer with Marquee & Real-time Clock */}
       <Footer isDarkMode={isDarkMode} />
+
+      {/* Floating Interactive WhatsApp AI Concierge Bot */}
+      <WhatsAppBot isDarkMode={isDarkMode} />
     </main>
   );
 }

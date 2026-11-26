@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Copy, Check, Send, MapPin, Phone, ArrowUpRight, MessageSquare } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
+import { GithubIcon, LinkedinIcon, WhatsAppIcon } from './Icons';
 import confetti from 'canvas-confetti';
 import TiltCard from './TiltCard';
 
@@ -90,7 +90,15 @@ export default function Contact({ isDarkMode }: ContactProps) {
       badge: 'Primary Email',
     },
     {
-      title: 'Direct Phone / WhatsApp',
+      title: 'WhatsApp Bot · Direct',
+      value: '+94 75 638 8329',
+      icon: WhatsAppIcon,
+      link: 'https://wa.me/94756388329?text=Hi%20Dinusha!%20I%20visited%20your%20portfolio%20and%20would%20love%20to%20connect.',
+      actionLabel: 'Chat on WhatsApp',
+      badge: 'Online 24/7 Bot',
+    },
+    {
+      title: 'Direct Phone',
       value: phone,
       icon: Phone,
       action: copyPhone,

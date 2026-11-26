@@ -69,6 +69,7 @@ export default function Terminal({ isDarkMode }: { isDarkMode: boolean }) {
               <div><span className="text-accent-light font-bold">philosophy</span> - Core engineering mantra & mindset</div>
               <div><span className="text-accent-light font-bold">experience</span> - Zylux, Network Wizard & NAITA history</div>
               <div><span className="text-accent-light font-bold">references</span> - Corporate & academic references</div>
+              <div><span className="text-emerald-400 font-bold">whatsapp</span> - Launch WhatsApp Bot (+94 75 638 8329)</div>
               <div><span className="text-accent-light font-bold">contact</span> - Email, WhatsApp, phone & socials</div>
               <div><span className="text-emerald-400 font-bold">status</span> - Current availability & collaboration</div>
               <div><span className="text-cyan-400 font-bold">hire</span> - Initiate direct dispatch 🎉</div>
@@ -228,10 +229,33 @@ export default function Terminal({ isDarkMode }: { isDarkMode: boolean }) {
           <div className="space-y-1.5 text-xs sm:text-sm text-slate-300">
             <p className="text-cyan-400 font-bold">📬 Direct Channels:</p>
             <p className="break-all">• Email: <a href="mailto:dkalharafernando@gmail.com" className="text-accent-light underline font-mono">dkalharafernando@gmail.com</a></p>
-            <p>• WhatsApp / Phone: <span className="text-white font-semibold font-mono">+94 77 582 9018</span></p>
+            <p>• WhatsApp Bot: <a href="https://wa.me/94756388329" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline font-mono font-bold">+94 75 638 8329</a> <span className="text-emerald-400 text-[10px]">(Online 24/7)</span></p>
+            <p>• Direct Phone: <span className="text-white font-semibold font-mono">+94 77 582 9018</span></p>
             <p>• Location: <span className="text-slate-400">Kalpitiya / Colombo, Sri Lanka</span></p>
             <p className="break-all">• LinkedIn: <a href="https://www.linkedin.com/in/dinusha-fernando-797745265/" target="_blank" rel="noopener noreferrer" className="text-accent-light underline font-mono">linkedin.com/in/dinusha-fernando</a></p>
             <p className="break-all">• GitHub: <a href="https://github.com/Dinusha-Fernando" target="_blank" rel="noopener noreferrer" className="text-accent-light underline font-mono">github.com/Dinusha-Fernando</a></p>
+          </div>
+        );
+        break;
+
+      case 'whatsapp':
+      case 'bot':
+        response = (
+          <div className="space-y-2 p-3 bg-gradient-to-r from-emerald-500/20 to-teal-500/10 rounded-xl border border-emerald-500/30 text-xs sm:text-sm">
+            <p className="text-emerald-400 font-bold flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> WhatsApp Bot Active · +94 75 638 8329
+            </p>
+            <p className="text-slate-200">
+              Direct connection dispatched. Click below to launch the automated chat directly on WhatsApp:
+            </p>
+            <a
+              href="https://wa.me/94756388329?text=Hi%20Dinusha!%20I%20visited%20your%20Developer%20Terminal%20and%20would%20love%20to%20connect."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-1 px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs transition-colors"
+            >
+              Open Direct WhatsApp Chat ↗
+            </a>
           </div>
         );
         break;
@@ -389,6 +413,7 @@ export default function Terminal({ isDarkMode }: { isDarkMode: boolean }) {
               'philosophy',
               'experience',
               'references',
+              'whatsapp',
               'status',
               'hire',
               'clear',
@@ -401,6 +426,8 @@ export default function Terminal({ isDarkMode }: { isDarkMode: boolean }) {
                 }}
                 className={`text-[11px] font-mono px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
                   cmd === 'hire'
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500 hover:text-white shadow-sm'
+                    : cmd === 'whatsapp'
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500 hover:text-white shadow-sm'
                     : cmd === 'zylux'
                     ? 'bg-violet-500/20 text-violet-300 border border-violet-500/40 hover:bg-violet-500 hover:text-white'
