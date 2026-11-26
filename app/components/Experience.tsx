@@ -23,16 +23,20 @@ import {
   Phone,
   Grid3X3,
   SlidersHorizontal,
+  Compass,
+  ArrowRight,
 } from 'lucide-react';
 import TiltCard from './TiltCard';
 import { referencesData } from '@/assets/assets';
 
 type TrackFilter = 'professional' | 'academic' | 'all';
+type ViewMode = 'console' | 'matrix';
 
 export default function Experience() {
   const [activeTrack, setActiveTrack] = useState<TrackFilter>('professional');
   const [showReferences, setShowReferences] = useState(false);
-  const [viewMode, setViewMode] = useState<'reel' | 'grid'>('reel');
+  const [viewMode, setViewMode] = useState<ViewMode>('console');
+  const [activeMilestoneId, setActiveMilestoneId] = useState<string>('zylux-venture');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const professionalTrack = [
@@ -278,11 +282,28 @@ export default function Experience() {
       ? academicTrack
       : [...professionalTrack, ...academicTrack];
 
-  const handleManualScroll = (direction: 'left' | 'right') => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    const offset = direction === 'left' ? -560 : 560;
-    container.scrollBy({ left: offset, behavior: 'smooth' });
+  const currentMilestoneIndex = Math.max(
+    0,
+    displayedMilestones.findIndex((m) => m.id === activeMilestoneId)
+  );
+
+  const activeMilestone =
+    displayedMilestones[currentMilestoneIndex] || displayedMilestones[0];
+
+  const handlePrevMilestone = () => {
+    const prevIndex =
+      currentMilestoneIndex === 0
+        ? displayedMilestones.length - 1
+        : currentMilestoneIndex - 1;
+    setActiveMilestoneId(displayedMilestones[prevIndex].id);
+  };
+
+  const handleNextMilestone = () => {
+    const nextIndex =
+      currentMilestoneIndex === displayedMilestones.length - 1
+        ? 0
+        : currentMilestoneIndex + 1;
+    setActiveMilestoneId(displayedMilestones[nextIndex].id);
   };
 
   return (
@@ -344,7 +365,7 @@ export default function Experience() {
         </div>
 
         {/* =========================================================================
-            CREATIVE TRACK CONTROLLER: TABS + SCROLL CONTROLS
+            MISSION CONTROL CONTROLLER: TRACKS + VIEW MODES + REFERENCES
            ========================================================================= */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           {/* Track Switcher Pills */}
@@ -352,7 +373,7 @@ export default function Experience() {
             <button
               onClick={() => {
                 setActiveTrack('professional');
-                if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = 0;
+                setActiveMilestoneId(professionalTrack[0].id);
               }}
               className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-outfit font-bold flex items-center gap-2 transition-all cursor-pointer ${
                 activeTrack === 'professional'
@@ -368,7 +389,7 @@ export default function Experience() {
             <button
               onClick={() => {
                 setActiveTrack('academic');
-                if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = 0;
+                setActiveMilestoneId(academicTrack[0].id);
               }}
               className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-outfit font-bold flex items-center gap-2 transition-all cursor-pointer ${
                 activeTrack === 'academic'
@@ -384,7 +405,7 @@ export default function Experience() {
             <button
               onClick={() => {
                 setActiveTrack('all');
-                if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = 0;
+                setActiveMilestoneId(professionalTrack[0].id);
               }}
               className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-outfit font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 activeTrack === 'all'
@@ -393,37 +414,37 @@ export default function Experience() {
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>All (6)</span>
+              <span>All Milestones (6)</span>
             </button>
           </div>
 
-          {/* Right Action Hub: View Mode (Reel / Grid) + References + Arrows */}
-          <div className="flex items-center gap-2 self-start lg:self-auto flex-wrap">
-            {/* View Mode Switcher */}
+          {/* Right Action Hub: View Mode (Console / Matrix) + References */}
+          <div className="flex items-center gap-2.5 self-start lg:self-auto flex-wrap">
+            {/* View Mode Switcher: Console vs Matrix */}
             <div className="p-1 rounded-xl glass-panel border border-gray-200 dark:border-white/10 flex items-center gap-1">
               <button
-                onClick={() => setViewMode('reel')}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                  viewMode === 'reel'
+                onClick={() => setViewMode('console')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  viewMode === 'console'
                     ? 'bg-accent text-white shadow-sm'
                     : 'text-slate-600 dark:text-slate-400 hover:text-white'
                 }`}
-                title="Horizontal Scroll Reel"
+                title="Interactive Mission Console"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5" />
-                <span>Reel</span>
+                <Compass className="w-3.5 h-3.5" />
+                <span>Console</span>
               </button>
               <button
-                onClick={() => setViewMode('grid')}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                  viewMode === 'grid'
+                onClick={() => setViewMode('matrix')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  viewMode === 'matrix'
                     ? 'bg-accent text-white shadow-sm'
                     : 'text-slate-600 dark:text-slate-400 hover:text-white'
                 }`}
-                title="Grid View"
+                title="Matrix Grid View"
               >
                 <Grid3X3 className="w-3.5 h-3.5" />
-                <span>Grid</span>
+                <span>Matrix</span>
               </button>
             </div>
 
@@ -435,26 +456,6 @@ export default function Experience() {
               <UserCheck className="w-3.5 h-3.5 text-accent" />
               <span>{showReferences ? 'Hide Ref' : 'References (2)'}</span>
             </button>
-
-            {/* Manual Scroll Chevrons for Reel Mode */}
-            {viewMode === 'reel' && (
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => handleManualScroll('left')}
-                  className="p-1.5 rounded-xl glass-card border border-gray-200 dark:border-white/10 hover:border-accent hover:text-accent transition-all cursor-pointer"
-                  title="Scroll Previous Milestone"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => handleManualScroll('right')}
-                  className="p-1.5 rounded-xl glass-card border border-gray-200 dark:border-white/10 hover:border-accent hover:text-accent transition-all cursor-pointer"
-                  title="Scroll Next Milestone"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            )}
           </div>
         </div>
 
@@ -515,250 +516,326 @@ export default function Experience() {
         </AnimatePresence>
 
         {/* =========================================================================
-            MILESTONES DISPLAY: REEL OR GRID
+            PERSPECTIVE 1: THE MISSION CONSOLE (Interactive Screen-Adaptive Hub)
            ========================================================================= */}
-        {viewMode === 'reel' ? (
-          <div className="relative">
-            {/* Side Gradient Fades */}
-            <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-white dark:from-darkTheme to-transparent pointer-events-none z-20" />
-            <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-white dark:from-darkTheme to-transparent pointer-events-none z-20" />
-
-            <div
-              ref={scrollContainerRef}
-              className="flex gap-6 overflow-x-auto scrollbar-none py-4 px-1 sm:px-2 snap-x snap-mandatory cursor-grab active:cursor-grabbing select-none"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-              }}
-            >
-              {displayedMilestones.map((milestone) => {
-                const Icon = milestone.icon;
-                return (
-                  <div
-                    key={milestone.id}
-                    className="w-[88vw] sm:w-[500px] md:w-[540px] lg:w-[580px] xl:w-[620px] shrink-0 snap-center"
-                  >
-                    <TiltCard
-                      className={`h-full rounded-2xl sm:rounded-[28px] p-5 sm:p-7 glass-panel border ${milestone.borderColor} shadow-xl hover:shadow-2xl transition-all relative overflow-hidden group flex flex-col justify-between`}
+        {viewMode === 'console' ? (
+          <div className="space-y-4">
+            {/* Interactive Timeline Stepper Strip */}
+            <div className="p-2 rounded-2xl glass-panel border border-gray-200/60 dark:border-white/10 bg-slate-900/30 overflow-x-auto scrollbar-none">
+              <div className="flex items-center gap-2 min-w-max">
+                {displayedMilestones.map((m, idx) => {
+                  const isSelected = m.id === activeMilestone.id;
+                  const Icon = m.icon;
+                  return (
+                    <button
+                      key={m.id}
+                      onClick={() => setActiveMilestoneId(m.id)}
+                      className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer relative ${
+                        isSelected
+                          ? 'bg-accent/20 border border-accent text-white shadow-lg shadow-accent/20 scale-[1.01]'
+                          : 'border border-gray-200/40 dark:border-white/5 text-slate-500 dark:text-slate-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                      }`}
                     >
-                      <div className="space-y-4">
-                        {/* Top Meta Bar: Icon, Code Badge, Period & Location */}
-                        <div className="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-gray-200/60 dark:border-white/10">
-                          <div className="flex items-center gap-2.5">
-                            <div
-                              className={`w-10 h-10 rounded-xl glass-card flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10 ${milestone.iconColor} group-hover:scale-110 transition-transform shadow-sm`}
-                            >
-                              <Icon className="w-5 h-5" />
-                            </div>
-                            <span
-                              className={`inline-block px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider border ${milestone.badgeColor}`}
-                            >
-                              {milestone.milestoneCode}
-                            </span>
-                          </div>
-
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg glass-card border border-gray-200/60 dark:border-white/10 text-[11px] font-mono font-bold text-cyan-500 dark:text-cyan-400">
-                              <Calendar className="w-3.5 h-3.5" />
-                              {milestone.period}
-                            </span>
-                            <span className="hidden xs:inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10.5px] font-mono text-slate-500 dark:text-slate-400">
-                              <MapPin className="w-3 h-3 text-rose-400" />
-                              {milestone.location}
-                            </span>
-                          </div>
+                      <div
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+                          isSelected ? 'bg-accent text-white' : 'bg-white/10 text-slate-400'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="text-left">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-bold text-[11px] text-accent dark:text-accent-light">
+                            {String(idx + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-[11px] font-outfit font-semibold line-clamp-1 max-w-[130px] sm:max-w-[170px]">
+                            {m.role}
+                          </span>
                         </div>
-
-                        {/* Role Title and Organization - Full Width */}
-                        <div className="space-y-1">
-                          <h3 className="text-xl sm:text-2xl font-outfit font-extrabold text-slate-900 dark:text-white leading-snug tracking-tight">
-                            {milestone.role}
-                          </h3>
-                          <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                            <span className="text-xs sm:text-sm font-mono font-bold text-accent dark:text-accent-light uppercase tracking-wide">
-                              {milestone.organization}
-                            </span>
-                            <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-gray-100 dark:bg-white/5 border border-gray-200/60 dark:border-white/10 text-slate-500 dark:text-slate-400">
-                              {milestone.type}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Tagline Callout */}
-                        {milestone.tagline && (
-                          <div className="p-3 rounded-xl bg-cyan-500/10 border-l-2 border-cyan-500 dark:border-cyan-400">
-                            <p className="text-xs sm:text-[13px] font-outfit font-medium text-cyan-700 dark:text-cyan-300 italic">
-                              &ldquo;{milestone.tagline}&rdquo;
-                            </p>
-                          </div>
-                        )}
-
-                        {/* Description */}
-                        <p className="text-xs sm:text-sm font-outfit text-slate-600 dark:text-slate-300 leading-relaxed font-light">
-                          {milestone.description}
+                        <p className="text-[9.5px] text-slate-400 dark:text-slate-500 truncate max-w-[150px]">
+                          {m.organization}
                         </p>
+                      </div>
+                      {isSelected && (
+                        <motion.div
+                          layoutId="activeTimelineGlow"
+                          className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-8 h-[2px] bg-accent shadow-[0_0_8px_#38bdf8]"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-                        {/* Core Contributions / Focus Areas */}
-                        <div className="space-y-2 pt-1">
-                          <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-                            <Sparkles className="w-3 h-3 text-accent" />
-                            <span>{milestone.contributionsHeader}</span>
-                          </h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            {milestone.contributions.map((item, cIdx) => (
-                              <div
-                                key={cIdx}
-                                className="flex items-start gap-2 p-2 rounded-xl glass-card border border-gray-200/40 dark:border-white/5 text-xs font-outfit text-slate-700 dark:text-slate-300 leading-snug hover:border-accent/30 transition-colors"
-                              >
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                                <span>{item}</span>
-                              </div>
-                            ))}
+            {/* Holographic Dossier Deck (Split Bento Console) */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeMilestone.id}
+                initial={{ opacity: 0, y: 12, scale: 0.99 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -12, scale: 0.99 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="rounded-3xl glass-panel border border-accent/25 bg-gradient-to-br from-slate-900/95 via-slate-900/75 to-slate-950/95 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
+              >
+                {/* Subtle Cyber Grid Texture */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10" />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-gray-200/20 dark:divide-white/10">
+                  {/* LEFT PANE: Identity, Narrative, Vision & Navigation (5 cols) */}
+                  <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-5">
+                    <div className="space-y-4">
+                      {/* Top Row: Icon + Code Pill + Period */}
+                      <div className="flex flex-wrap items-center justify-between gap-2.5">
+                        <div className="flex items-center gap-2.5">
+                          <div
+                            className={`w-11 h-11 rounded-2xl glass-card flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10 ${activeMilestone.iconColor} shadow-md`}
+                          >
+                            <activeMilestone.icon className="w-5 h-5" />
                           </div>
+                          <span
+                            className={`inline-block px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider border ${activeMilestone.badgeColor}`}
+                          >
+                            {activeMilestone.milestoneCode}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl glass-card border border-gray-200/60 dark:border-white/10 text-[11px] font-mono font-bold text-cyan-400">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <span>{activeMilestone.period}</span>
                         </div>
                       </div>
 
-                      {/* Bottom: Skills & Status Tag */}
-                      <div className="pt-4 mt-5 border-t border-gray-200/50 dark:border-white/5 space-y-3">
+                      {/* Role Title & Organization */}
+                      <div className="space-y-1 pt-1">
+                        <h3 className="text-2xl sm:text-3xl font-outfit font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight">
+                          {activeMilestone.role}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-sm font-mono font-bold text-accent dark:text-accent-light uppercase tracking-wide">
+                            {activeMilestone.organization}
+                          </span>
+                          <span className="text-slate-500 text-xs">·</span>
+                          <span className="flex items-center gap-1 text-xs font-mono text-slate-400">
+                            <MapPin className="w-3 h-3 text-rose-400" />
+                            {activeMilestone.location}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Tagline Accent Callout */}
+                      {activeMilestone.tagline && (
+                        <div className="p-3.5 rounded-2xl bg-cyan-500/10 border-l-3 border-cyan-400 dark:border-cyan-400 space-y-0.5">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-400">
+                            Guiding Philosophy
+                          </span>
+                          <p className="text-xs sm:text-[13px] font-outfit font-medium text-cyan-700 dark:text-cyan-200 italic">
+                            &ldquo;{activeMilestone.tagline}&rdquo;
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Overview Description */}
+                      <p className="text-xs sm:text-sm font-outfit text-slate-600 dark:text-slate-300 leading-relaxed font-light">
+                        {activeMilestone.description}
+                      </p>
+                    </div>
+
+                    {/* Left Footer: Stepper Controls & Live Status */}
+                    <div className="pt-4 border-t border-gray-200/40 dark:border-white/10 flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={handlePrevMilestone}
+                          className="p-2 rounded-xl glass-card border border-gray-200 dark:border-white/10 hover:border-accent hover:text-accent text-slate-400 transition-all cursor-pointer"
+                          title="Previous Milestone"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <div className="text-xs font-mono font-bold text-slate-400 px-1">
+                          <span className="text-white">
+                            {String(currentMilestoneIndex + 1).padStart(2, '0')}
+                          </span>{' '}
+                          / {String(displayedMilestones.length).padStart(2, '0')}
+                        </div>
+                        <button
+                          onClick={handleNextMilestone}
+                          className="p-2 rounded-xl glass-card border border-gray-200 dark:border-white/10 hover:border-accent hover:text-accent text-slate-400 transition-all cursor-pointer"
+                          title="Next Milestone"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                          {activeMilestone.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT PANE: Engineering Deliverables Matrix & Capabilities (7 cols) */}
+                  <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-slate-950/20">
+                    {/* Deliverables / Contributions Matrix */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between pb-1 border-b border-gray-200/40 dark:border-white/10">
+                        <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                          <Sparkles className="w-3.5 h-3.5 text-accent" />
+                          <span>{activeMilestone.contributionsHeader}</span>
+                        </div>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-accent/15 text-accent-light font-bold">
+                          {activeMilestone.contributions.length} Focus Areas
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                        {activeMilestone.contributions.map((item, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-start gap-2 p-2.5 rounded-xl glass-card border border-gray-200/40 dark:border-white/5 hover:border-accent/30 text-xs font-outfit text-slate-700 dark:text-slate-300 leading-snug transition-colors group"
+                          >
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tech Stack & Core Highlights */}
+                    <div className="space-y-4 pt-4 border-t border-gray-200/40 dark:border-white/10">
+                      {/* Core Technologies */}
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">
+                          Core Technologies & Capabilities
+                        </span>
                         <div className="flex flex-wrap gap-1.5">
-                          {milestone.skills.map((skill, sIdx) => (
+                          {activeMilestone.skills.map((skill, sIdx) => (
                             <span
                               key={sIdx}
-                              className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-white/5 text-[10px] font-mono font-medium text-slate-700 dark:text-slate-200 border border-gray-200/60 dark:border-white/5"
+                              className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-white/5 text-[10.5px] font-mono font-medium text-slate-700 dark:text-slate-200 border border-gray-200/60 dark:border-white/5 hover:border-accent/40 transition-colors"
                             >
                               {skill}
                             </span>
                           ))}
                         </div>
+                      </div>
 
-                        <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                          <div className="inline-flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-500">
-                              {milestone.status}
+                      {/* Key Highlights */}
+                      <div className="space-y-1.5">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">
+                          Milestone Signatures
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {activeMilestone.highlights.map((hl, hIdx) => (
+                            <span
+                              key={hIdx}
+                              className="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[10px] font-mono font-semibold"
+                            >
+                              ✦ {hl}
                             </span>
-                          </div>
-                          <span className="text-[10px] font-mono text-slate-400">
-                            {milestone.highlights.join(' · ')}
-                          </span>
+                          ))}
                         </div>
                       </div>
-                    </TiltCard>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 w-full py-4">
+          /* =========================================================================
+              PERSPECTIVE 2: COMPACT MATRIX VIEW (Balanced 3-Column Bento Cards)
+             ========================================================================= */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full py-2">
             {displayedMilestones.map((milestone) => {
               const Icon = milestone.icon;
               return (
                 <div key={milestone.id} className="w-full">
                   <TiltCard
-                    className={`h-full rounded-2xl sm:rounded-[28px] p-5 sm:p-7 glass-panel border ${milestone.borderColor} shadow-xl hover:shadow-2xl transition-all relative overflow-hidden group flex flex-col justify-between`}
+                    className={`h-full rounded-2xl p-5 glass-panel border ${milestone.borderColor} shadow-lg hover:shadow-xl transition-all relative overflow-hidden group flex flex-col justify-between space-y-4`}
                   >
-                    <div className="space-y-4">
-                      {/* Top Meta Bar: Icon, Code Badge, Period & Location */}
-                      <div className="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-gray-200/60 dark:border-white/10">
-                        <div className="flex items-center gap-2.5">
+                    <div className="space-y-3">
+                      {/* Card Header: Icon + Code + Period */}
+                      <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-gray-200/60 dark:border-white/10">
+                        <div className="flex items-center gap-2">
                           <div
-                            className={`w-10 h-10 rounded-xl glass-card flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10 ${milestone.iconColor} group-hover:scale-110 transition-transform shadow-sm`}
+                            className={`w-9 h-9 rounded-xl glass-card flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/10 ${milestone.iconColor} group-hover:scale-105 transition-transform`}
                           >
-                            <Icon className="w-5 h-5" />
+                            <Icon className="w-4 h-4" />
                           </div>
                           <span
-                            className={`inline-block px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider border ${milestone.badgeColor}`}
+                            className={`inline-block px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider border ${milestone.badgeColor}`}
                           >
-                            {milestone.milestoneCode}
+                            {milestone.milestoneCode.split('//')[0]}
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg glass-card border border-gray-200/60 dark:border-white/10 text-[11px] font-mono font-bold text-cyan-500 dark:text-cyan-400">
-                            <Calendar className="w-3.5 h-3.5" />
-                            {milestone.period}
-                          </span>
-                          <span className="hidden xs:inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10.5px] font-mono text-slate-500 dark:text-slate-400">
-                            <MapPin className="w-3 h-3 text-rose-400" />
-                            {milestone.location}
-                          </span>
-                        </div>
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg glass-card border border-gray-200/60 dark:border-white/10 text-[10px] font-mono font-bold text-cyan-400">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {milestone.period}
+                        </span>
                       </div>
 
-                      {/* Role Title and Organization - Full Width */}
-                      <div className="space-y-1">
-                        <h3 className="text-xl sm:text-2xl font-outfit font-extrabold text-slate-900 dark:text-white leading-snug tracking-tight">
+                      {/* Role & Organization */}
+                      <div className="space-y-0.5">
+                        <h4 className="text-base sm:text-lg font-outfit font-extrabold text-slate-900 dark:text-white leading-snug">
                           {milestone.role}
-                        </h3>
-                        <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                          <span className="text-xs sm:text-sm font-mono font-bold text-accent dark:text-accent-light uppercase tracking-wide">
-                            {milestone.organization}
-                          </span>
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-gray-100 dark:bg-white/5 border border-gray-200/60 dark:border-white/10 text-slate-500 dark:text-slate-400">
-                            {milestone.type}
-                          </span>
-                        </div>
+                        </h4>
+                        <p className="text-xs font-mono font-bold text-accent dark:text-accent-light uppercase">
+                          {milestone.organization}
+                        </p>
                       </div>
 
-                      {/* Tagline Callout */}
+                      {/* Philosophy Tagline */}
                       {milestone.tagline && (
-                        <div className="p-3 rounded-xl bg-cyan-500/10 border-l-2 border-cyan-500 dark:border-cyan-400">
-                          <p className="text-xs sm:text-[13px] font-outfit font-medium text-cyan-700 dark:text-cyan-300 italic">
-                            &ldquo;{milestone.tagline}&rdquo;
-                          </p>
-                        </div>
+                        <p className="text-[11px] font-outfit text-cyan-600 dark:text-cyan-400 italic line-clamp-1">
+                          &ldquo;{milestone.tagline}&rdquo;
+                        </p>
                       )}
 
-                      {/* Description */}
-                      <p className="text-xs sm:text-sm font-outfit text-slate-600 dark:text-slate-300 leading-relaxed font-light">
-                        {milestone.description}
-                      </p>
-
-                      {/* Core Contributions / Focus Areas */}
-                      <div className="space-y-2 pt-1">
-                        <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3 text-accent" />
-                          <span>{milestone.contributionsHeader}</span>
-                        </h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          {milestone.contributions.map((item, cIdx) => (
-                            <div
-                              key={cIdx}
-                              className="flex items-start gap-2 p-2 rounded-xl glass-card border border-gray-200/40 dark:border-white/5 text-xs font-outfit text-slate-700 dark:text-slate-300 leading-snug hover:border-accent/30 transition-colors"
-                            >
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
+                      {/* 4 Compact Contributions */}
+                      <div className="space-y-1.5 pt-1">
+                        {milestone.contributions.slice(0, 4).map((c, cIdx) => (
+                          <div
+                            key={cIdx}
+                            className="flex items-start gap-1.5 text-[11px] font-outfit text-slate-600 dark:text-slate-300 leading-snug"
+                          >
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                            <span className="line-clamp-1">{c}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
-                    {/* Bottom: Skills & Status Tag */}
-                    <div className="pt-4 mt-5 border-t border-gray-200/50 dark:border-white/5 space-y-3">
-                      <div className="flex flex-wrap gap-1.5">
-                        {milestone.skills.map((skill, sIdx) => (
+                    {/* Footer: Skills + Open In Console Button */}
+                    <div className="pt-3 border-t border-gray-200/50 dark:border-white/5 space-y-2.5">
+                      <div className="flex flex-wrap gap-1">
+                        {milestone.skills.slice(0, 4).map((skill, sIdx) => (
                           <span
                             key={sIdx}
-                            className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-white/5 text-[10px] font-mono font-medium text-slate-700 dark:text-slate-200 border border-gray-200/60 dark:border-white/5"
+                            className="px-2 py-0.5 rounded-md bg-gray-100 dark:bg-white/5 text-[9px] font-mono text-slate-700 dark:text-slate-300 border border-gray-200/40 dark:border-white/5"
                           >
                             {skill}
                           </span>
                         ))}
+                        {milestone.skills.length > 4 && (
+                          <span className="px-1.5 py-0.5 rounded-md bg-accent/15 text-[9px] font-mono text-accent-light font-bold">
+                            +{milestone.skills.length - 4}
+                          </span>
+                        )}
                       </div>
 
-                      <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                        <div className="inline-flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-500">
-                            {milestone.status}
-                          </span>
-                        </div>
-                        <span className="text-[10px] font-mono text-slate-400">
-                          {milestone.highlights.join(' · ')}
-                        </span>
-                      </div>
+                      <button
+                        onClick={() => {
+                          setActiveMilestoneId(milestone.id);
+                          setViewMode('console');
+                        }}
+                        className="w-full py-1.5 px-3 rounded-xl glass-card border border-accent/20 hover:border-accent text-accent dark:text-accent-light text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer group/btn"
+                      >
+                        <span>Open in Console</span>
+                        <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
+                      </button>
                     </div>
                   </TiltCard>
                 </div>
