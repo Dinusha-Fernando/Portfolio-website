@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://dinushafernando.me/sitemap.xml
+Sitemap: https://dinusha-showcase.vercel.app/sitemap.xml

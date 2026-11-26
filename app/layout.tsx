@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://dinushafernando.me'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://dinusha-showcase.vercel.app'),
   title: {
     default: 'Dinusha Fernando | Full-Stack Software Engineer & Founder',
     template: '%s | Dinusha Fernando',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'Sri Lanka Developer',
     'Portfolio',
   ],
-  authors: [{ name: 'Dinusha Fernando', url: 'https://dinushafernando.me' }],
+  authors: [{ name: 'Dinusha Fernando', url: 'https://dinusha-showcase.vercel.app' }],
   creator: 'Dinusha Fernando',
   publisher: 'Dinusha Fernando',
   alternates: {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://dinushafernando.me',
+    url: 'https://dinusha-showcase.vercel.app',
     title: 'Dinusha Fernando | Full-Stack Software Engineer & Founder',
     description:
       'Explore the engineering portfolio, scalable software architectures, AI systems, and enterprise solutions built by Dinusha Fernando.',
@@ -85,6 +85,9 @@ export const metadata: Metadata = {
     icon: '/logo.png',
     shortcut: '/logo.png',
     apple: '/logo.png',
+  },
+  verification: {
+    google: 'google70a4bcecb56a9dea',
   },
 };
 
